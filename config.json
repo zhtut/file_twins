@@ -1,0 +1,9 @@
+{
+  "tasks": [
+    {
+      "origin": "/origin",
+      "dest": "/dest",
+      "start": "8:00:00"
+    }
+  ]
+}
