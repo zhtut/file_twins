@@ -3,7 +3,7 @@
     {
       "origin": "/origin",
       "dest": "/dest",
-      "start": "8:00:00"
+      "start": "08:00:00"
     }
   ]
 }
