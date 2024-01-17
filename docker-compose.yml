@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  app:
+  file_twins:
     image: file_twins
     build: .
     container_name: file_twins
