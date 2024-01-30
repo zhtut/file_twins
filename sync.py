@@ -38,7 +38,10 @@ class SyncAction:
         # 判断是文件还是文件夹
         if is_origin_folder:
             if not os.path.exists(self.dest):
-                os.mkdir(self.dest)
+                try:
+                    os.mkdir(self.dest)
+                except Exception as e:
+                    dlog(f"创建文件夹失败：{e}")
             # 是文件夹，就遍历文件夹中的文件和文件夹
             files = os.listdir(self.origin)
             for file in files:
