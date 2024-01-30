@@ -3,6 +3,7 @@ import os
 import schedule
 import time
 import sync
+from path import *
 
 
 def sync_data(origin, dest):
@@ -12,14 +13,12 @@ def sync_data(origin, dest):
     dlog("--------》同步完成")
 
 
-def dlog(message):
-    print(message, flush=True)
-
-
 def main():
     config_path = "/config.json"
     if not os.path.exists(config_path):
-        raise Exception("config.json不存在，请先配置config.json")
+        config_path = "./config.json"
+        if not os.path.exists(config_path):
+            raise Exception("config.json不存在，请先配置config.json")
     dlog(f"config路径：{config_path}")
     with open(config_path) as f:
         content = json.loads(f.read())

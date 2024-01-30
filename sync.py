@@ -1,10 +1,24 @@
 import os
-import shutil
+import stat
+import subprocess
 import sys
+from path import *
 
 
 def dlog(message):
     print(message, flush=True)
+
+
+def sync_two_file(path1, path2):
+    try:
+        origin_size = os.path.getsize(path1)
+        if path_exists(path2):
+            if os.path.getsize(path2) == origin_size:
+                dlog("目的路径与原始路径大小一致，无需同步")
+                return
+    except Exception:
+        pass
+    subprocess.getoutput(f"cp -R {path1} {path2}")
 
 
 class SyncAction:
@@ -21,15 +35,19 @@ class SyncAction:
         :return:
         """
         dlog(f"开始同步{self.origin}至{self.dest}")
-        if not os.path.exists(self.origin):
+        if not path_exists(self.origin):
             dlog(f"源文件路径不存在：{self.origin}")
             return
 
-        is_origin_folder = os.path.isdir(self.origin)
+        is_origin_folder = path_is_dir(self.origin)
 
         is_dest_folder = None
-        if os.path.exists(self.dest):
+        if path_exists(self.dest):
             is_dest_folder = os.path.isdir(self.dest)
+            if is_dest_folder:
+                dlog(f"目标{self.dest}是一个文件夹")
+            else:
+                dlog(f"目标{self.dest}是一个普通文件")
 
         if is_dest_folder is not None and is_origin_folder != is_dest_folder:
             dlog(f"目的路径跟源路径不是一个类型，无法同步")
@@ -37,7 +55,7 @@ class SyncAction:
 
         # 判断是文件还是文件夹
         if is_origin_folder:
-            if not os.path.exists(self.dest):
+            if not path_exists(self.dest):
                 try:
                     os.mkdir(self.dest)
                 except Exception as e:
@@ -50,11 +68,7 @@ class SyncAction:
                 SyncAction(src_file, dest_file).sync()
         else:
             # 是文件，就复制文件
-            origin_size = os.path.getsize(self.origin)
-            if os.path.exists(self.dest) and origin_size == os.path.getsize(self.dest):
-                dlog(f"{self.origin}与{self.dest}大小一至，跳过拷贝")
-                return
-            shutil.copy2(self.origin, self.dest)
+            sync_two_file(self.origin, self.dest)
             dlog(f"已拷贝{self.origin}至{self.dest}")
 
 
