@@ -15,4 +15,4 @@ services:
       - /Volumes/Ssd/mt-photos:/mt-photos_origin
       - /Volumes/Raid/mt-photos:/mt-photos_dest
       - /Users/zhtut/mt-photos/config:/config_origin
-      - /Volumes/Raid/mt-photos/config:/config_dest
+      - /Volumes/Raid/mt-photos_config:/config_dest
