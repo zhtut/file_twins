@@ -6,7 +6,6 @@ services:
     build: .
     container_name: file_twins
     restart: always
-    user: $USER
     environment:
       - PUID=1000
       - PGID=1000
