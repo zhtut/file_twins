@@ -6,11 +6,12 @@ services:
     build: .
     container_name: file_twins
     restart: always
+    user: $USER
     environment:
       - PUID=1000
       - PGID=1000
       - TZ=Asia/Shanghai
     volumes:
       - ./config.json:/config.json
-      - /Volumes/Media/mt-photos:/origin
-      - /Volumes/Raid/mt_photos:/dest
+      - /Volumes/Ssd/mt-photos:/origin
+      - /Volumes/Raid/mt-photos:/dest
