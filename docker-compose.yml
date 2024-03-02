@@ -13,4 +13,4 @@ services:
     volumes:
       - ./config.json:/config.json
       - /home/zhtut/mt-photos:/origin
-      - /Vhome/zhtut/photos:/dest
+      - /home/zhtut/photos:/dest
