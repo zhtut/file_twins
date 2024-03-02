@@ -12,7 +12,5 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./config.json:/config.json
-      - /Volumes/Ssd/mt-photos:/mt-photos_origin
-      - /Volumes/Raid/mt-photos:/mt-photos_dest
-      - /Users/zhtut/mt-photos/config:/config_origin
-      - /Volumes/Raid/mt-photos_config:/config_dest
+      - /home/zhtut/mt-photos:/origin
+      - /Vhome/zhtut/photos:/dest

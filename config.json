@@ -1,13 +1,8 @@
 {
   "tasks": [
     {
-      "origin": "/mt-photos_origin",
-      "dest": "/mt-photos_dest",
-      "start": "08:00:00"
-    },
-    {
-      "origin": "/config_origin",
-      "dest": "/config_dest",
+      "origin": "/origin",
+      "dest": "/dest",
       "start": "08:00:00"
     }
   ]
