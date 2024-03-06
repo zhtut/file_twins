@@ -25,7 +25,6 @@ def path_is_dir(path: str) -> bool:
     attrs = os.lstat(path)
     # 判断是符号链接还是目录
     st_mode = attrs.st_mode
-    dlog(f"{path}, st_mode:{st_mode}")
     if attrs.st_mode and stat.S_ISDIR(st_mode):
         return True
     return False
