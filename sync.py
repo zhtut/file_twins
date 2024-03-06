@@ -1,4 +1,5 @@
 import os
+import shutil
 import stat
 import subprocess
 import sys
@@ -14,11 +15,16 @@ def sync_two_file(path1, path2):
         origin_size = os.path.getsize(path1)
         if path_exists(path2):
             if os.path.getsize(path2) == origin_size:
-                dlog("目的路径与原始路径大小一致，无需同步")
+                dlog(f"{path1}与{path2}大小一致，无需同步")
                 return
     except Exception:
         pass
-    subprocess.getoutput(f"cp -R {path1} {path2}")
+    copy_result, copy_msg = subprocess.getstatusoutput(f"cp -R {path1} {path2}")
+    if copy_result == 0:
+        shutil.copystat(path1, path2)
+        dlog(f"已拷贝{path1}至{path2}")
+    else:
+        dlog(f"拷贝{path1}至{path2}失败：{copy_msg}")
 
 
 class SyncAction:
@@ -34,7 +40,6 @@ class SyncAction:
         开始同步两个文件夹
         :return:
         """
-        dlog(f"开始同步{self.origin}至{self.dest}")
         if not path_exists(self.origin):
             dlog(f"源文件路径不存在：{self.origin}")
             return
@@ -69,7 +74,6 @@ class SyncAction:
         else:
             # 是文件，就复制文件
             sync_two_file(self.origin, self.dest)
-            dlog(f"已拷贝{self.origin}至{self.dest}")
 
 
 if __name__ == "__main__":

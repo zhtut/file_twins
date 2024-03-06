@@ -12,5 +12,5 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - ./config.json:/config.json
-      - /home/zhtut/mt-photos:/origin
-      - /home/zhtut/photos:/dest
+      - /Volumes/mt-photos/upload:/origin
+      - /Users/zhtut/Documents/upload:/dest
