@@ -19,7 +19,7 @@ def sync_two_file(path1, path2):
                 return
     except Exception:
         pass
-    copy_result, copy_msg = subprocess.getstatusoutput(f"cp -R {path1} {path2}")
+    copy_result, copy_msg = subprocess.getstatusoutput(f"cp -R '{path1}' '{path2}'")
     if copy_result == 0:
         shutil.copystat(path1, path2)
         dlog(f"已拷贝{path1}至{path2}")
